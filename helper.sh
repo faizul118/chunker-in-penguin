@@ -16,7 +16,7 @@ rm chunker.zip
 FILEURL="$1"  # Assuming the first argument is the download FILEURL
 
 # If $MCWORLDNAME is defined, use that as the filename for the download
-if [ -n "$MCWORLDNAME" ]; then
+if [ -z "$MCWORLDNAME" ]; then
     FILENAME="$MCWORLDNAME"
 else
     # Extract the filename from the FILEURL and remove the extension

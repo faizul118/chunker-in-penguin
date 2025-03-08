@@ -1,7 +1,6 @@
 #!/bin/bash
 
 # Your Telegram Bot Token
-BOT_TOKEN="7851874160:AAFqHDKUpk3fv1Db-k0JDh1mf41-6OGlXoc"
 
 # Your Telegram User ID (replace with your actual user id)
 USER_ID="YOUR_TELEGRAM_USER_ID"
