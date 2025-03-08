@@ -33,19 +33,18 @@ jobs:
 
       - name: Upload each file in the output folder as an artifact
         if: steps.run_helper.outcome == 'success'
-<<<<<<< HEAD
         run: |
+          # Loop over each file in the output directory
           for file in ./output/*; do
             if [ -f "$file" ]; then
               # Upload each file as an individual artifact
               artifact_name=$(basename "$file")
               echo "Uploading $artifact_name as an artifact..."
-              gh release upload ${{ github.sha }} "$file" --name "$artifact_name" --clobber
+              # Use GitHub's upload-artifact action to upload each file separately
+              curl -X POST \
+                -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+                -H "Accept: application/vnd.github.v3+json" \
+                -F "file=@$file" \
+                "https://uploads.github.com/repos/${{ github.repository }}/releases/${{ github.sha }}/assets?name=$artifact_name"
             fi
           done
-=======
-        uses: actions/upload-artifact@v2
-        with:
-          name: output-files
-          path: ./output
->>>>>>> eb9d349 (fix artifact)
