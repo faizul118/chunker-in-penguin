@@ -33,6 +33,7 @@ jobs:
 
       - name: Upload each file in the output folder as an artifact
         if: steps.run_helper.outcome == 'success'
+<<<<<<< HEAD
         run: |
           for file in ./output/*; do
             if [ -f "$file" ]; then
@@ -42,3 +43,9 @@ jobs:
               gh release upload ${{ github.sha }} "$file" --name "$artifact_name" --clobber
             fi
           done
+=======
+        uses: actions/upload-artifact@v2
+        with:
+          name: output-files
+          path: ./output
+>>>>>>> eb9d349 (fix artifact)
