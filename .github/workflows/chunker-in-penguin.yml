@@ -1,0 +1,41 @@
+name: Manual Helper Action
+
+on:
+  workflow_dispatch:
+    inputs:
+      MCVWORLD:
+        description: 'Optional: MCWORLD value'
+        required: false
+        default: ''
+      FILEURL:
+        description: 'The file URL to process'
+        required: true
+      TARGETVERSION:
+        description: 'Target version'
+        required: true
+
+jobs:
+  run-helper:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set MCWORLD environment variable if provided
+        if: ${{ github.event.inputs.MCVWORLD != '' }}
+        run: echo "MCWORLD=${{ github.event.inputs.MCVWORLD }}" >> $GITHUB_ENV
+
+      - name: Make helper.sh executable
+        run: chmod +x ./helper.sh
+
+      - name: Run helper.sh with provided inputs
+        id: run_helper
+        run: |
+          ./helper.sh "${{ github.event.inputs.FILEURL }}" "${{ github.event.inputs.TARGETVERSION }}"
+
+      - name: Upload output artifacts if helper.sh succeeded
+        if: steps.run_helper.outcome == 'success'
+        uses: actions/upload-artifact@v3
+        with:
+          name: output-files
+          path: ./output
