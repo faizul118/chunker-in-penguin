@@ -16,8 +16,8 @@ rm chunker.zip
 FILEURL="$1"  # Assuming the first argument is the download FILEURL
 
 # If $MCWORLDNAME is defined, use that as the filename for the download
-if [ -z "$MCWORLDNAME" ]; then
-    FILENAME="$MCWORLDNAME"
+if [ -z "$3" ]; then
+    FILENAME="$3"
 else
     # Extract the filename from the FILEURL and remove the extension
     # FILENAME=$(basename "$FILEURL" | sed 's/\.[^.]*$//')
@@ -54,8 +54,8 @@ if [ -d "$CHUNKEROUTPUT"_"$TARGETVERSION" ]; then
         mkdir -p "output"
     fi
     # Create a zip of the contents inside the CHUNKEROUTPUT folder
-    zip -r "output/$CHUNKEROUTPUT"_"$TARGETVERSION.zip" "$CHUNKEROUTPUT"_"$TARGETVERSION"
-    rm -rf "$CHUNKEROUTPUT"_"$TARGETVERSION"
+    #zip -r "output/$CHUNKEROUTPUT"_"$TARGETVERSION.zip" "$CHUNKEROUTPUT"_"$TARGETVERSION"
+    #rm -rf "$CHUNKEROUTPUT"_"$TARGETVERSION"
     rm -rf "input"
     echo "Zipping of output folder completed: $CHUNKEROUTPUT"_"$TARGETVERSION.zip"
     exit 0
