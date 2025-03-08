@@ -33,4 +33,5 @@ jobs:
         if: steps.run_helper.outcome == 'success'
         uses: actions/upload-artifact@v4
         with:
-          path: ./output/*.zip
+          name: ${{ github.event.inputs.MCWORLD != '' ? 'chunker_output.zip' }}
+          path: ./output
