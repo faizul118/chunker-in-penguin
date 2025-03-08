@@ -42,12 +42,6 @@ CHUNKEROUTPUT="$FILENAME"        # Set CHUNKEROUTPUT the same way
 
 TARGETVERSION="$2"        # Get target version from the second argument
 
-# Check if all necessary arguments are provided
-if [ -z "$CHUNKERINPUT" ] || [ -z "$CHUNKEROUTPUT" ] || [ -z "$TARGETVERSION" ]; then
-    echo "Error: Missing arguments. Please provide CHUNKERINPUT, CHUNKEROUTPUT, and TARGETVERSION."
-    exit 1
-fi
-
 # Run the chunker-cli command with the provided arguments
 chmod +x ./chunker-cli/bin/chunker-cli
 ./chunker-cli/bin/chunker-cli -i "$CHUNKERINPUT" -o "$CHUNKEROUTPUT"_"$TARGETVERSION" -f "$TARGETVERSION"
