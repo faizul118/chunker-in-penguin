@@ -21,31 +21,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Set MCWORLD environment variable if provided
-
       - name: Make helper.sh executable
         run: chmod +x ./helper.sh
 
       - name: Run helper.sh with provided inputs
         id: run_helper
         run: |
-          ./helper.sh "${{ github.event.inputs.FILEURL }}" "${{ github.event.inputs.TARGETVERSION }}"  "${{ github.event.inputs.MCWORLD }}"
+          ./helper.sh "${{ github.event.inputs.FILEURL }}" "${{ github.event.inputs.TARGETVERSION }}" "${{ github.event.inputs.MCWORLD }}"
 
-      - name: Upload each file in the output folder as an artifact
+      - name: Upload output artifacts if helper.sh succeeded
         if: steps.run_helper.outcome == 'success'
-<<<<<<< HEAD
-        run: |
-          for file in ./output/*; do
-            if [ -f "$file" ]; then
-              # Upload each file as an individual artifact
-              artifact_name=$(basename "$file")
-              echo "Uploading $artifact_name as an artifact..."
-              gh release upload ${{ github.sha }} "$file" --name "$artifact_name" --clobber
-            fi
-          done
-=======
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: output-files
           path: ./output
->>>>>>> eb9d349 (fix artifact)
