@@ -33,5 +33,4 @@ jobs:
         if: steps.run_helper.outcome == 'success'
         uses: actions/upload-artifact@v4
         with:
-          name: output-files
-          path: ./output
+          path: ./output/*.zip
