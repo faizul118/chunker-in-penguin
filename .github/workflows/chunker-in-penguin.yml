@@ -35,7 +35,7 @@ jobs:
 
       - name: Upload output artifacts if helper.sh succeeded
         if: steps.run_helper.outcome == 'success'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v2
         with:
           name: output-files
           path: ./output
