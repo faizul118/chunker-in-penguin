@@ -16,7 +16,7 @@ rm chunker.zip
 FILEURL="$1"  # Assuming the first argument is the download FILEURL
 
 # If $MCWORLDNAME is defined, use that as the filename for the download
-if [ -z "$3" ]; then
+if [ -n "$3" ]; then
     FILENAME="$3"
 else
     # Extract the filename from the FILEURL and remove the extension
@@ -45,22 +45,23 @@ TARGETVERSION="$2"        # Get target version from the second argument
 # Run the chunker-cli command with the provided arguments
 chmod +x ./chunker-cli/bin/chunker-cli
 if [ ! -d "output" ]; then
-        mkdir -p "output"
+    mkdir -p "output"
 fi
-./chunker-cli/bin/chunker-cli -i "$CHUNKERINPUT" -o "output/$CHUNKEROUTPUT"_"$TARGETVERSION" -f "$TARGETVERSION"
+./chunker-cli/bin/chunker-cli -i "$CHUNKERINPUT" -o "output" -f "$TARGETVERSION"
 rm -rf chunker-cli
+rm -rf "input"
 echo "Download, extraction, and processing complete."
 
 # Check if the CHUNKEROUTPUT folder exists before zipping
-if [ -d "$CHUNKEROUTPUT"_"$TARGETVERSION" ]; then
-    # Create a zip of the contents inside the CHUNKEROUTPUT folder
-    #zip -r "output/$CHUNKEROUTPUT"_"$TARGETVERSION.zip" "$CHUNKEROUTPUT"_"$TARGETVERSION"
-    #rm -rf "$CHUNKEROUTPUT"_"$TARGETVERSION"
-    rm -rf "input"
-    ls -R output
-    echo "Zipping of output folder completed: $CHUNKEROUTPUT"_"$TARGETVERSION.zip"
-    exit 0
-else
-    echo "Error: Output folder $CHUNKEROUTPUT"_"$TARGETVERSION does not exist. Unable to zip."
-    exit 1
-fi
+# if [ -d "$CHUNKEROUTPUT"_"$TARGETVERSION" ]; then
+#     # Create a zip of the contents inside the CHUNKEROUTPUT folder
+#     #zip -r "output/$CHUNKEROUTPUT"_"$TARGETVERSION.zip" "$CHUNKEROUTPUT"_"$TARGETVERSION"
+#     #rm -rf "$CHUNKEROUTPUT"_"$TARGETVERSION"
+#     
+#     ls -R output
+#     echo "Zipping of output folder completed: $CHUNKEROUTPUT"_"$TARGETVERSION.zip"
+#     exit 0
+# else
+#     echo "Error: Output folder $CHUNKEROUTPUT"_"$TARGETVERSION does not exist. Unable to zip."
+#     exit 1
+# fi
