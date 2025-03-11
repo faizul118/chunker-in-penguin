@@ -37,7 +37,7 @@ jobs:
         # ./helper.sh "${{ github.event.inputs.FILEURL }}" "${{ github.event.inputs.TARGETVERSION }}" "${{ github.event.inputs.MCWORLD }}"
 
       - name: Upload world to tmpfiles.org
-        run: ./5_upload.sh "${{ github.event.inputs.MCWORLD }}.zip"
+        run: ./5_upload.sh "${{ github.event.inputs.FILENAME }}.zip"
 
 
 #      - name: Upload world as artifact
