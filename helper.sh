@@ -44,15 +44,15 @@ TARGETVERSION="$2"        # Get target version from the second argument
 
 # Run the chunker-cli command with the provided arguments
 chmod +x ./chunker-cli/bin/chunker-cli
+if [ ! -d "output" ]; then
+        mkdir -p "output"
+fi
 ./chunker-cli/bin/chunker-cli -i "$CHUNKERINPUT" -o "output/$CHUNKEROUTPUT"_"$TARGETVERSION" -f "$TARGETVERSION"
 rm -rf chunker-cli
 echo "Download, extraction, and processing complete."
 
 # Check if the CHUNKEROUTPUT folder exists before zipping
 if [ -d "$CHUNKEROUTPUT"_"$TARGETVERSION" ]; then
-    if [ ! -d "output" ]; then
-        mkdir -p "output"
-    fi
     # Create a zip of the contents inside the CHUNKEROUTPUT folder
     #zip -r "output/$CHUNKEROUTPUT"_"$TARGETVERSION.zip" "$CHUNKEROUTPUT"_"$TARGETVERSION"
     #rm -rf "$CHUNKEROUTPUT"_"$TARGETVERSION"
