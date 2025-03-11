@@ -3,10 +3,9 @@ name: Manual Helper Action
 on:
   workflow_dispatch:
     inputs:
-      MCWORLD:
-        description: 'Optional: MCWORLD value'
-        required: false
-        default: ''
+      FILENAME:
+        description: 'Name'
+        required: true
       FILEURL:
         description: 'The file URL to process'
         required: true
@@ -19,29 +18,29 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Make helper.sh executable
-        run: |
-          chmod +x ./helper.sh
-          chmod +X ./upload_curl.sh
+      - name: Make *.sh executable
+        run: chmod +x *.sh
 
-      - name: Run helper.sh with provided inputs
-        id: run_helper
-        run: |
-          ./helper.sh "${{ github.event.inputs.FILEURL }}" "${{ github.event.inputs.TARGETVERSION }}" "${{ github.event.inputs.MCWORLD }}"
+      - name: Download Chunker
+        run: ./1_helper.sh
       
-      - name: ls
-        run: ls -R output
+      - name: Download world
+        run: ./2_download.sh "${{ github.event.inputs.FILEURL }}" "${{ github.event.inputs.FILENAME }}"
 
-      - name: PWD
-        run: |
-          pwd
-          ls .
+      - name: Extract world
+        run: ./3_extract.sh "${{ github.event.inputs.FILENAME }}"
 
-      - name: Upload output artifacts if helper.sh succeeded
-        if: steps.run_helper.outcome == 'success'
+      - name: Convert world
+        run: ./4_convert.sh "${{ github.event.inputs.MCWORLD }}" "${{ github.event.inputs.TARGETVERSION }}"
+        # ./helper.sh "${{ github.event.inputs.FILEURL }}" "${{ github.event.inputs.TARGETVERSION }}" "${{ github.event.inputs.MCWORLD }}"
+
+      - name: Upload world as artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ github.event.inputs.MCWORLD }}
+          name: ${{ github.event.inputs.FILENAME }}
           path: ${{ github.workspace }}/output/
+
+      - name: Upload world to tmpfiles.org
+        run: ./5_upload.sh "${{ github.event.inputs.MCWORLD }}.zip"
