@@ -57,6 +57,9 @@ if [ -d "$CHUNKEROUTPUT"_"$TARGETVERSION" ]; then
     #zip -r "output/$CHUNKEROUTPUT"_"$TARGETVERSION.zip" "$CHUNKEROUTPUT"_"$TARGETVERSION"
     #rm -rf "$CHUNKEROUTPUT"_"$TARGETVERSION"
     rm -rf "input"
+    pushd output
+    ls
+    popd
     echo "Zipping of output folder completed: $CHUNKEROUTPUT"_"$TARGETVERSION.zip"
     exit 0
 else
