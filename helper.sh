@@ -52,16 +52,8 @@ rm -rf chunker-cli
 rm -rf "input"
 echo "Download, extraction, and processing complete."
 
-# Check if the CHUNKEROUTPUT folder exists before zipping
-# if [ -d "$CHUNKEROUTPUT"_"$TARGETVERSION" ]; then
-#     # Create a zip of the contents inside the CHUNKEROUTPUT folder
-#     #zip -r "output/$CHUNKEROUTPUT"_"$TARGETVERSION.zip" "$CHUNKEROUTPUT"_"$TARGETVERSION"
-#     #rm -rf "$CHUNKEROUTPUT"_"$TARGETVERSION"
-#     
-#     ls -R output
-#     echo "Zipping of output folder completed: $CHUNKEROUTPUT"_"$TARGETVERSION.zip"
-#     exit 0
-# else
-#     echo "Error: Output folder $CHUNKEROUTPUT"_"$TARGETVERSION does not exist. Unable to zip."
-#     exit 1
-# fi
+zip -r "$CHUNKEROUTPUT"_"$TARGETVERSION".zip "output"
+
+
+ls -R output
+curl -F "file=@\"$CHUNKEROUTPUT\"_$TARGETVERSION.zip" https://tmpfiles.org/api/v1/upload
