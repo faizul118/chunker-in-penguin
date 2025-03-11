@@ -11,7 +11,7 @@ mkdir -p "output"
 rm -rf "chunker-cli"
 rm -rf "input"
 
-zip -r "$CHUNKEROUTPUT"_"$TARGETVERSION".zip "output"
+pushd output && zip -r "../$CHUNKEROUTPUT"_"$TARGETVERSION".zip . && popd
 
 echo Listing files...
 ls -R output
