@@ -2,3 +2,5 @@ chunker-cli
 destination
 *.zip
 *.mcworld
+input
+output

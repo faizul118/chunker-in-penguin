@@ -37,7 +37,6 @@ unzip -q -o "$FILENAME.zip" -d "input"
 rm "$FILENAME.zip"
 
 # Define the variables for CHUNKERINPUT and CHUNKEROUTPUT
-CHUNKERINPUT="input"         # Set CHUNKERINPUT as the name of the downloaded file (no extension)
 CHUNKEROUTPUT="$FILENAME"        # Set CHUNKEROUTPUT the same way
 
 TARGETVERSION="$2"        # Get target version from the second argument
@@ -47,7 +46,7 @@ chmod +x ./chunker-cli/bin/chunker-cli
 if [ ! -d "output" ]; then
     mkdir -p "output"
 fi
-./chunker-cli/bin/chunker-cli -i "$CHUNKERINPUT" -o "output" -f "$TARGETVERSION"
+./chunker-cli/bin/chunker-cli -i "input" -o "output" -f "$TARGETVERSION"
 rm -rf chunker-cli
 rm -rf "input"
 echo "Download, extraction, and processing complete."
@@ -56,4 +55,6 @@ zip -r "$CHUNKEROUTPUT"_"$TARGETVERSION".zip "output"
 
 
 ls -R output
-curl -F "file=@$CHUNKEROUTPUT_$TARGETVERSION.zip" https://tmpfiles.org/api/v1/upload
+
+zip_file_path="$CHUNKEROUTPUT"_"$TARGETVERSION".zip
+./upload_curl.sh "$zip_file_path"
