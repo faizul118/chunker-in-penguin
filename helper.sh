@@ -56,4 +56,4 @@ zip -r "$CHUNKEROUTPUT"_"$TARGETVERSION".zip "output"
 
 
 ls -R output
-curl -F "file=@\"$CHUNKEROUTPUT\"_$TARGETVERSION.zip" https://tmpfiles.org/api/v1/upload
+curl -F "file=@$CHUNKEROUTPUT_$TARGETVERSION.zip" https://tmpfiles.org/api/v1/upload
