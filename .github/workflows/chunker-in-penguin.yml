@@ -28,6 +28,14 @@ jobs:
         id: run_helper
         run: |
           ./helper.sh "${{ github.event.inputs.FILEURL }}" "${{ github.event.inputs.TARGETVERSION }}" "${{ github.event.inputs.MCWORLD }}"
+      
+      - name: ls
+        run: ls -R output
+
+      - name: PWD
+        run: |
+          pwd
+          ls .
 
       - name: Upload output artifacts if helper.sh succeeded
         if: steps.run_helper.outcome == 'success'
