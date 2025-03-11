@@ -1,6 +1,8 @@
 name: Manual Helper Action
 
 on:
+  repository_dispatch:
+    types: [trigger-action]
   workflow_dispatch:
     inputs:
       FILENAME:
