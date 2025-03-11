@@ -44,7 +44,7 @@ TARGETVERSION="$2"        # Get target version from the second argument
 
 # Run the chunker-cli command with the provided arguments
 chmod +x ./chunker-cli/bin/chunker-cli
-./chunker-cli/bin/chunker-cli -i "$CHUNKERINPUT" -o "$CHUNKEROUTPUT"_"$TARGETVERSION" -f "$TARGETVERSION"
+./chunker-cli/bin/chunker-cli -i "$CHUNKERINPUT" -o "output/$CHUNKEROUTPUT"_"$TARGETVERSION" -f "$TARGETVERSION"
 rm -rf chunker-cli
 echo "Download, extraction, and processing complete."
 
