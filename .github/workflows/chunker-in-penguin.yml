@@ -35,7 +35,7 @@ jobs:
         run: ./3_extract.sh "${{ github.event.inputs.FILENAME }}"
 
       - name: Convert world
-        run: ./4_convert.sh "${{ github.event.inputs.MCWORLD }}" "${{ github.event.inputs.TARGETVERSION }}"
+        run: ./4_convert.sh "${{ github.event.inputs.FILENAME }}" "${{ github.event.inputs.TARGETVERSION }}"
         # ./helper.sh "${{ github.event.inputs.FILEURL }}" "${{ github.event.inputs.TARGETVERSION }}" "${{ github.event.inputs.MCWORLD }}"
 
       - name: Upload world to tmpfiles.org
